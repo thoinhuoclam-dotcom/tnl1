@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Đăng Ký Áo Lớp</title>
+  <meta name="description" content="Trang điền thông tin đặt áo lớp: Tên, Số áo, Tên in áo, Size áo">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-badge">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 002-2V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z"/>
+          </svg>
+        </div>
+        <span class="brand-title">Đăng Ký Áo Lớp</span>
+      </div>
+      <div class="header-actions">
+        <button id="btnOpenSizeGuide" class="btn-subtle" type="button">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+          </svg>
+          <span>Bảng size</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Segmented Tab Switcher (Form / Preview) -->
+  <div class="mobile-tab-switch">
+    <button id="tabBtnForm" class="tab-btn active" type="button">1. Điền Thông Tin</button>
+    <button id="tabBtnPreview" class="tab-btn" type="button">2. Xem Dáng Áo</button>
+  </div>
+
+  <main class="main-content">
+    <div class="container grid-layout">
+      
+      <!-- CỘT 1: FORM ĐIỀN THÔNG TIN -->
+      <section id="formSection" class="card form-card">
+        <div class="card-header">
+          <h1 class="card-title">Điền Thông Tin Đặt Áo</h1>
+          <p class="card-desc">Vui lòng điền đủ 4 mục bên dưới để hoàn tất đăng ký.</p>
+        </div>
+
+        <form id="orderForm" autocomplete="off">
+          
+          <!-- Mục 1: Tên -->
+          <div class="form-group">
+            <label for="fullName">
+              <span class="label-number">1</span>
+              <span class="label-text">Tên thành viên <span class="required">*</span></span>
+            </label>
+            <input 
+              type="text" 
+              id="fullName" 
+              name="fullName" 
+              class="form-control" 
+              placeholder="VD: Nguyễn Bảo Anh" 
+              required
+              maxlength="50"
+            >
+          </div>
+
+          <!-- Mục 2: Số Áo (0 - 999) -->
+          <div class="form-group">
+            <label for="jerseyNumber">
+              <span class="label-number">2</span>
+              <span class="label-text">Số áo <span class="required">*</span></span>
+              <span class="label-hint">(0 - 999)</span>
+            </label>
+            <input 
+              type="text" 
+              id="jerseyNumber" 
+              name="jerseyNumber" 
+              class="form-control font-num" 
+              placeholder="VD: 10, 77, 999" 
+              required
+              maxlength="3"
+              inputmode="numeric"
+            >
+          </div>
+
+          <!-- Mục 3: Tên Áo (In trên lưng) -->
+          <div class="form-group">
+            <label for="printedName">
+              <span class="label-number">3</span>
+              <span class="label-text">Tên in trên áo <span class="required">*</span></span>
+              <span class="label-hint">(Tối đa 16 ký tự)</span>
+            </label>
+            <input 
+              type="text" 
+              id="printedName" 
+              name="printedName" 
+              class="form-control uppercase" 
+              placeholder="VD: BẢO ANH, CR7, CAPTAIN" 
+              required
+              maxlength="16"
+            >
+          </div>
+
+          <!-- Mục 4: Size Áo (S, M, L, XL, 2XL, 3XL) -->
+          <div class="form-group">
+            <div class="label-row">
+              <label>
+                <span class="label-number">4</span>
+                <span class="label-text">Size áo <span class="required">*</span></span>
+              </label>
+              <button type="button" id="btnHelpSize" class="text-link">Bảng size</button>
+            </div>
+            
+            <div class="size-selector" id="sizeSelector">
+              <label class="size-item">
+                <input type="radio" name="size" value="S">
+                <span class="size-badge">S</span>
+              </label>
+              <label class="size-item">
+                <input type="radio" name="size" value="M" checked>
+                <span class="size-badge">M</span>
+              </label>
+              <label class="size-item">
+                <input type="radio" name="size" value="L">
+                <span class="size-badge">L</span>
+              </label>
+              <label class="size-item">
+                <input type="radio" name="size" value="XL">
+                <span class="size-badge">XL</span>
+              </label>
+              <label class="size-item">
+                <input type="radio" name="size" value="2XL">
+                <span class="size-badge">2XL</span>
+              </label>
+              <label class="size-item">
+                <input type="radio" name="size" value="3XL">
+                <span class="size-badge">3XL</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Ghi chú thêm -->
+          <div class="form-group">
+            <label for="orderNote">
+              <span class="label-text text-muted">Ghi chú (không bắt buộc)</span>
+            </label>
+            <input 
+              type="text" 
+              id="orderNote" 
+              name="note" 
+              class="form-control" 
+              placeholder="VD: Lấy form rộng, may cổ tim..."
+              maxlength="100"
+            >
+          </div>
+
+          <!-- Nút kích hoạt xác nhận -->
+          <div class="form-actions">
+            <button type="button" id="btnContinue" class="btn-primary">
+              <span>Kiểm Tra & Xác Nhận Gửi</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+
+        </form>
+      </section>
+
+      <!-- CỘT 2: LIVE PREVIEW DÁNG ÁO THUN LỚP -->
+      <section id="previewSection" class="preview-column">
+        <div class="card preview-card">
+          <div class="preview-header">
+            <span class="preview-tag">XEM TRƯỚC MẶT SAU</span>
+            <span class="stat-badge" id="pillSize">Size M</span>
+          </div>
+
+          <!-- SVG Áo Thun -->
+          <div class="tshirt-stage">
+            <svg class="tshirt-svg" viewBox="0 0 400 440" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <filter id="shirtShadow" x="-10%" y="-10%" width="120%" height="120%">
+                  <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#1D4E4F" flood-opacity="0.08"/>
+                </filter>
+              </defs>
+              
+              <!-- Thân áo thun -->
+              <path d="M130 52 C150 72 250 72 270 52 L370 105 L335 180 L295 160 L295 400 C295 405 290 410 280 410 L120 410 C110 410 105 405 105 400 L105 160 L65 180 L30 105 Z" 
+                    fill="#FFFDF9" stroke="#E5D9DC" stroke-width="2.5" filter="url(#shirtShadow)"/>
+              
+              <!-- Cổ áo sau -->
+              <path d="M130 52 C160 66 240 66 270 52 C255 76 145 76 130 52 Z" fill="#F0E8EB" stroke="#DECED3" stroke-width="2"/>
+              
+              <!-- Nếp gấp vai & tay áo -->
+              <path d="M105 160 L125 150" stroke="#E5D9DC" stroke-width="2" stroke-linecap="round"/>
+              <path d="M295 160 L275 150" stroke="#E5D9DC" stroke-width="2" stroke-linecap="round"/>
+              <path d="M120 400 L280 400" stroke="#EAE0E3" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+              <!-- VÙNG IN: TÊN ÁO -->
+              <text id="svgPrintedName" x="200" y="152" 
+                    text-anchor="middle" 
+                    font-family="'Plus Jakarta Sans', sans-serif" 
+                    font-size="22" 
+                    font-weight="800" 
+                    fill="#1D4E4F" 
+                    letter-spacing="2">TÊN BẠN</text>
+
+              <!-- VÙNG IN: SỐ ÁO (Hỗ trợ 0 - 999) -->
+              <text id="svgJerseyNumber" x="200" y="275" 
+                    text-anchor="middle" 
+                    font-family="'Archivo Black', 'Oswald', sans-serif" 
+                    font-size="110" 
+                    font-weight="900" 
+                    fill="#1D4E4F">10</text>
+            </svg>
+          </div>
+
+          <!-- Tóm tắt nhanh thẻ áo -->
+          <div class="preview-stats">
+            <div class="stat-pill">
+              <span class="stat-label">Số áo:</span>
+              <span class="stat-val" id="pillNumber">#10</span>
+            </div>
+            <div class="stat-pill">
+              <span class="stat-label">Tên in:</span>
+              <span class="stat-val" id="pillName">TÊN BẠN</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- MODAL XÁC NHẬN THÔNG TIN TRƯỚC KHI GỬI -->
+  <div id="confirmModal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      
+      <h3 class="modal-title">Xác Nhận Đặt Áo</h3>
+      <p class="modal-sub">Vui lòng rà soát lại thông tin in ấn dưới đây để đảm bảo chính xác nhé!</p>
+
+      <div class="confirm-summary">
+        <div class="summary-row">
+          <span class="summary-label">1. Tên thành viên</span>
+          <span class="summary-value" id="modalFullName">-</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">2. Số áo</span>
+          <span class="summary-value highlight-num" id="modalJerseyNumber">-</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">3. Tên in sau áo</span>
+          <span class="summary-value highlight-name" id="modalPrintedName">-</span>
+        </div>
+        <div class="summary-row">
+          <span class="summary-label">4. Size áo</span>
+          <span class="summary-value badge-size" id="modalSize">-</span>
+        </div>
+        <div class="summary-row" id="modalNoteRow" style="display: none;">
+          <span class="summary-label">Ghi chú</span>
+          <span class="summary-value" id="modalNote">-</span>
+        </div>
+      </div>
+
+      <div class="modal-buttons">
+        <button type="button" id="btnModalBack" class="btn-secondary">Sửa Lại</button>
+        <button type="button" id="btnModalSubmit" class="btn-primary">
+          <span id="submitBtnText">Chắc Chắn & Gửi Đi</span>
+          <div id="submitSpinner" class="spinner" style="display:none;"></div>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL BẢNG SIZE ÁO CHUẨN (THEO ẢNH NGƯỜI DÙNG) -->
+  <div id="sizeGuideModal" class="modal-backdrop">
+    <div class="modal-card size-modal-card">
+      <div class="size-modal-header">
+        <h3 class="modal-title">Bảng Thông Số Size Áo</h3>
+        <button type="button" id="btnCloseSizeGuide" class="btn-close">&times;</button>
+      </div>
+      
+      <div class="table-responsive">
+        <table class="size-table">
+          <thead>
+            <tr>
+              <th>Size</th>
+              <th>S</th>
+              <th>M</th>
+              <th>L</th>
+              <th>XL</th>
+              <th>2XL</th>
+              <th>3XL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Ngang áo</strong></td>
+              <td>45 cm</td><td>50 cm</td><td>55 cm</td><td>60 cm</td><td>65 cm</td><td>70 cm</td>
+            </tr>
+            <tr>
+              <td><strong>Dài áo</strong></td>
+              <td>60 cm</td><td>65 cm</td><td>70 cm</td><td>75 cm</td><td>80 cm</td><td>85 cm</td>
+            </tr>
+            <tr>
+              <td><strong>Cân nặng</strong></td>
+              <td>&lt;40kg</td><td>&lt;50kg</td><td>&lt;62kg</td><td>&lt;75kg</td><td>&lt;90kg</td><td>95-110kg</td>
+            </tr>
+            <tr>
+              <td><strong>Chiều cao</strong></td>
+              <td>&lt;1m5</td><td>&lt;1m6</td><td>&lt;1m7</td><td>&lt;1m75</td><td>&lt;1m85</td><td>&gt;1m9</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-buttons">
+        <button type="button" id="btnUnderstandSize" class="btn-primary w-full">Đã Hiểu</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MÀN HÌNH THÀNH CÔNG -->
+  <div id="successModal" class="modal-backdrop">
+    <div class="modal-card success-card">
+      <div class="success-icon">🎉</div>
+      <h3 class="modal-title">Đăng Ký Thành Công!</h3>
+      <p class="modal-sub">Thông tin áo của bạn đã được ghi nhận.</p>
+      
+      <div class="success-ticket">
+        <div class="ticket-row"><span>Họ tên:</span><strong id="sucName"></strong></div>
+        <div class="ticket-row"><span>Số & Tên áo:</span><strong id="sucShirt"></strong></div>
+        <div class="ticket-row"><span>Size áo:</span><strong id="sucSize"></strong></div>
+        <div class="ticket-row"><span>Mã biên nhận:</span><code id="sucId"></code></div>
+      </div>
+
+      <div class="modal-buttons">
+        <button type="button" id="btnRegisterAnother" class="btn-primary w-full">Đăng Ký Cho Bạn Khác</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
